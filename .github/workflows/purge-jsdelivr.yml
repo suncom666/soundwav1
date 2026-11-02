@@ -1,0 +1,20 @@
+name: Purge jsDelivr cache
+
+on:
+  push:
+    branches: [main]
+    paths: ['licenses.json']
+  workflow_dispatch:
+
+jobs:
+  purge:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Purge licenses.json
+        run: |
+          sleep 10
+          for i in 1 2 3; do
+            curl -fsS https://purge.jsdelivr.net/gh/suncom666/soundwav1@main/licenses.json && exit 0
+            sleep 10
+          done
+          exit 1
